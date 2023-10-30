@@ -22,7 +22,7 @@ namespace WebApplication4.Controllers
             { return BadRequest("пустое имя"); }
 
             if (string.IsNullOrWhiteSpace(requst.Login))
-            {   BadRequest("пустой логин"); }
+            { return  BadRequest("пустой логин"); }
 
             return true ;
         }

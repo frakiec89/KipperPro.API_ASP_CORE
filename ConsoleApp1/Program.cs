@@ -13,6 +13,7 @@ try
 {
     RegistretionService  service = new RegistretionService();
     service.AddUser(log, pass, name);
+    Console.WriteLine("Успешно");
 }
 catch (Exception ex)
 {

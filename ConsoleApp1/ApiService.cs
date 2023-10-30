@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Net.Http.Json;
 
 internal class ApiService
 {
@@ -10,13 +11,15 @@ internal class ApiService
         {
             var  url = host + "/api/Registration/registration";
             string resJson = Post(url, jsonUs);
+            if (resJson != "true")
+            {
+                throw new Exception(resJson);
+            }
             return true; 
-
         }
         catch (Exception ex)
         {
-
-            throw;
+            throw ex ;
         }
 
     }
@@ -30,12 +33,14 @@ internal class ApiService
             var content = new StringContent(jsContent, null, "application/json");
             request.Content = content;
             var response =client.Send(request);
-            response.EnsureSuccessStatusCode();
+           
 
-            if(response.StatusCode!= System.Net.HttpStatusCode.OK)
+            if(response.StatusCode == HttpStatusCode.BadRequest  )
             {
-                var e =  response.Content;
+                var e = response.Content.ReadAsStringAsync().Result;
+                return e;
             }
+          
             return  response.Content.ReadAsStringAsync().Result;
         }
         catch (WebException ex)
@@ -43,4 +48,9 @@ internal class ApiService
             throw new Exception(ex.Message);
         }
     }
+    public class Error
+    {
+        public string Message { get; set; } 
+    }
+
 }

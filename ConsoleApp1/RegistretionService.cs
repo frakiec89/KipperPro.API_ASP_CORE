@@ -11,7 +11,6 @@ internal class RegistretionService
         var jsonUs = JsonConvert.SerializeObject(us);
 
         ApiService service = new ApiService();
-
         var jsRespons =  service.AddUser(jsonUs) ;
 
 
