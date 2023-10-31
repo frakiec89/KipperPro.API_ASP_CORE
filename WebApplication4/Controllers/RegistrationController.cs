@@ -27,5 +27,20 @@ namespace WebApplication4.Controllers
             return true ;
         }
 
+        [HttpPost("authUser")]
+        public ActionResult<ModelApi.UserResponse> AuthUser (UserRequst requst)
+        {
+            if (requst == null)
+            { return BadRequest("пустой запрос"); }
+
+            if (string.IsNullOrWhiteSpace(requst.Password))
+            { return BadRequest("пустой пароль"); }
+
+            if (string.IsNullOrWhiteSpace(requst.Login))
+            { return BadRequest("пустой логин"); }
+
+            return new UserResponse() { Id = 1, Name = "test" };
+        }
+
     }
 }

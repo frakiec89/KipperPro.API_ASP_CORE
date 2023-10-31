@@ -1,27 +1,41 @@
-﻿using System.Net;
+﻿using Newtonsoft.Json;
+using System.Net;
 using System.Net.Http.Json;
+using System.Text.Json.Nodes;
 
 internal class ApiService
 {
+    string host = "http://localhost:5000";
+
+    internal ModelApi.UserResponse GetUser (string jsonUs)
+    {
+        try
+        {
+            var url = host + "/api/Registration/authUser";
+            string resJson = Post(url, jsonUs);
+            
+                var us = JsonConvert.DeserializeObject<ModelApi.UserResponse>(resJson);
+                return us;
+            
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
     internal bool AddUser(string jsonUs)
     {
-        string host = "http://localhost:5000";
-
         try
         {
             var  url = host + "/api/Registration/registration";
             string resJson = Post(url, jsonUs);
-            if (resJson != "true")
-            {
-                throw new Exception(resJson);
-            }
             return true; 
         }
         catch (Exception ex)
         {
             throw ex ;
         }
-
     }
 
     private string Post(string url, string jsContent)
@@ -35,13 +49,15 @@ internal class ApiService
             var response =client.Send(request);
            
 
-            if(response.StatusCode == HttpStatusCode.BadRequest  )
+            switch (response.StatusCode  )
             {
+                case HttpStatusCode.BadRequest:  
                 var e = response.Content.ReadAsStringAsync().Result;
-                return e;
+                 throw new Exception ( e);
+                case HttpStatusCode.NotFound:
+                    throw new Exception( "Не  верный запрос, проверьте путь  запроса");
+                default: return response.Content.ReadAsStringAsync().Result;
             }
-          
-            return  response.Content.ReadAsStringAsync().Result;
         }
         catch (WebException ex)
         {
