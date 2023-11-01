@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using KipperPro.API_ASP_CORE.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication4.ModelApi;
 
@@ -24,6 +25,17 @@ namespace WebApplication4.Controllers
             if (string.IsNullOrWhiteSpace(requst.Login))
             { return  BadRequest("пустой логин"); }
 
+            try
+            {
+                UsersService service = new UsersService();
+                service.AddUser (requst);
+            }
+            catch (Exception ex)
+            {
+                BadRequest(ex.Message);
+            }
+
+            
             return true ;
         }
 
