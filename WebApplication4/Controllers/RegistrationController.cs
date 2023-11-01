@@ -22,8 +22,17 @@ namespace WebApplication4.Controllers
             if (string.IsNullOrWhiteSpace(requst.Name))
             { return BadRequest("пустое имя"); }
 
-            if (string.IsNullOrWhiteSpace(requst.Login))
-            { return  BadRequest("пустой логин"); }
+            if (string.IsNullOrWhiteSpace(requst.Email))
+            { return  BadRequest("Email логин"); }
+
+
+            if (requst.Password.Length < 8)
+                return BadRequest("пароль короткий");
+
+            if (requst.Password.ToLower() == requst.Password ||
+                requst.Password.ToLower() == requst.Password
+                )
+                return BadRequest("пароль плохой");
 
             try
             {
@@ -48,7 +57,7 @@ namespace WebApplication4.Controllers
             if (string.IsNullOrWhiteSpace(requst.Password))
             { return BadRequest("пустой пароль"); }
 
-            if (string.IsNullOrWhiteSpace(requst.Login))
+            if (string.IsNullOrWhiteSpace(requst.Email))
             { return BadRequest("пустой логин"); }
 
             return new UserResponse() { Id = 1, Name = "test" };

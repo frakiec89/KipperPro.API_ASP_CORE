@@ -11,5 +11,13 @@ namespace KipperPro.API_ASP_CORE.DB
         {
             optionsBuilder.UseSqlServer(cs);
         }
+
+        public DbSet<DB.AttendsGroups> AttendsGroups { get; set; }
+        public DbSet<DB.AttendsPersonally> AttendsPersonally { get; set;}
+        public DbSet<DB.Department> Department { get; set; }
+        public DbSet<DB.Division> Divisions { get; set; }
+        public DbSet<DB.User> Users { get; set; }   
+        public DbSet<DB.Visitor> Visitors { get; set; }
+
     }
 }
