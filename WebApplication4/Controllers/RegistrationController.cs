@@ -33,6 +33,7 @@ namespace WebApplication4.Controllers
                 requst.Password.ToLower() == requst.Password
                 )
                 return BadRequest("пароль плохой");
+            // todo - куча  проверок 
 
             try
             {
@@ -43,8 +44,6 @@ namespace WebApplication4.Controllers
             {
                 BadRequest(ex.Message);
             }
-
-            
             return true ;
         }
 
@@ -62,6 +61,5 @@ namespace WebApplication4.Controllers
 
             return new UserResponse() { Id = 1, Name = "test" };
         }
-
     }
 }
