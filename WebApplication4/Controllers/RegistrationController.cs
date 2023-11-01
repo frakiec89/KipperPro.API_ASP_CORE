@@ -59,7 +59,19 @@ namespace WebApplication4.Controllers
             if (string.IsNullOrWhiteSpace(requst.Email))
             { return BadRequest("пустой логин"); }
 
-            return new UserResponse() { Id = 1, Name = "test" };
+            try
+            {
+                UsersService service = new UsersService();
+                UserResponse us = service.GetUser (requst);
+
+                return us;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
         }
     }
 }

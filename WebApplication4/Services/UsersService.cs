@@ -18,5 +18,20 @@ namespace KipperPro.API_ASP_CORE.Services
                 throw new Exception( e.Message);
             }
         }
+
+        internal UserResponse GetUser(UserRequst requst)
+        {
+            try
+            {
+                var us = 
+                context.Visitors.Single(x => x.Email == requst.Email
+                && x.Password == requst.Password) ;
+                return new UserResponse { Id = us.VisitorId , Name = us.Name };
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
