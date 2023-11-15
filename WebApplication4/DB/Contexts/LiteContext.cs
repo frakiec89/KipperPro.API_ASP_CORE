@@ -13,6 +13,6 @@ public class LiteContext : DbSetsBase
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(_config["connectionStringSqlLite"]);
+        optionsBuilder.UseSqlite(_config["connectionStringSqlLite"]);
     }
 }
