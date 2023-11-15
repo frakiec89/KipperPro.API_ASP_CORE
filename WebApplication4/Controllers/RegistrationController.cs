@@ -1,77 +1,42 @@
 ﻿using KipperPro.API_ASP_CORE.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication4.ModelApi;
 
-namespace WebApplication4.Controllers
+namespace KipperPro.API_ASP_CORE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class RegistrationController : ControllerBase
     {
+        private readonly ValidationService _validation;
+        private readonly UsersService _service;
+
+        public RegistrationController(ValidationService validation, UsersService usersService)
+        {
+            _validation = validation;
+            _service = usersService;
+        }
 
         [HttpPost("registration")]
-        public ActionResult<bool> Registration(UserRequst requst)
+        public IActionResult Registration(UserRequest request)
         {
-            if (requst == null)
-            {  return BadRequest("пустой запрос");            }
+            if (_validation.IsValidRegistraion(request))
+                return BadRequest(
+                    "Запрос не прошел валидацию. Логин либо пустой, пароль возможно тоже, пароль должен быть не меньше 6 символов");
 
-            if (string.IsNullOrWhiteSpace(requst.Password))
-            {return BadRequest("пустой пароль");            }
-
-            if (string.IsNullOrWhiteSpace(requst.Name))
-            { return BadRequest("пустое имя"); }
-
-            if (string.IsNullOrWhiteSpace(requst.Email))
-            { return  BadRequest("Email логин"); }
-
-
-            if (requst.Password.Length < 8)
-                return BadRequest("пароль короткий");
-
-            if (requst.Password.ToLower() == requst.Password ||
-                requst.Password.ToLower() == requst.Password
-                )
-                return BadRequest("пароль плохой");
-            // todo - куча  проверок 
-
-            try
-            {
-                UsersService service = new UsersService();
-                service.AddUser (requst);
-            }
-            catch (Exception ex)
-            {
-                BadRequest(ex.Message);
-            }
-            return true ;
+            _service.AddUser(request);
+            
+            return Ok();
         }
 
         [HttpPost("authUser")]
-        public ActionResult<ModelApi.UserResponse> AuthUser (UserRequst requst)
+        public IActionResult AuthUser(UserRequest request)
         {
-            if (requst == null)
-            { return BadRequest("пустой запрос"); }
+            if (_validation.IsValidLogin(request))
+                return BadRequest(
+                    "Запрос не прошел валидацию. Логин либо пустой, пароль возможно тоже");
 
-            if (string.IsNullOrWhiteSpace(requst.Password))
-            { return BadRequest("пустой пароль"); }
-
-            if (string.IsNullOrWhiteSpace(requst.Email))
-            { return BadRequest("пустой логин"); }
-
-            try
-            {
-                UsersService service = new UsersService();
-                UserResponse us = service.GetUser (requst);
-
-                return us;
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-
+            return Ok(_service.GetUser(request));
         }
     }
 }

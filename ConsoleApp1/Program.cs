@@ -1,4 +1,6 @@
-﻿while (true)
+﻿using KipperPro.ConnsoleClient;
+
+while (true)
 {
     Console.WriteLine("Введите логин");
     var log = Console.ReadLine();

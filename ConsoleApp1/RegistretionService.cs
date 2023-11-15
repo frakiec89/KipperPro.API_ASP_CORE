@@ -1,5 +1,7 @@
-﻿using ModelApi;
+﻿using KipperPro.ConnsoleClient.ModelApi;
 using Newtonsoft.Json;
+
+namespace KipperPro.ConnsoleClient;
 
 internal class RegistretionService
 {
@@ -14,7 +16,7 @@ internal class RegistretionService
         var jsRespons =  service.AddUser(jsonUs) ;
     }
 
-    internal ModelApi.UserResponse GetUser (string? em, string? pass)
+    internal UserResponse GetUser (string? em, string? pass)
     {
         var us = new UserRequst() { Email = em, Password = pass , Name=string.Empty };
         var jsonUs = JsonConvert.SerializeObject(us);

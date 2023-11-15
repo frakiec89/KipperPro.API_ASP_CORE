@@ -1,4 +1,4 @@
-﻿namespace ModelApi
+﻿namespace KipperPro.ConnsoleClient.ModelApi
 {
     public class UserRequst
     {

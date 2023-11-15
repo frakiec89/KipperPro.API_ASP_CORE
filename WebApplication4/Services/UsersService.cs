@@ -1,37 +1,44 @@
-﻿using WebApplication4.ModelApi;
+﻿using KipperPro.API_ASP_CORE.DB;
+using KipperPro.API_ASP_CORE.DB.Base;
+using KipperPro.API_ASP_CORE.DB.Contexts;
+using WebApplication4.ModelApi;
 
-namespace KipperPro.API_ASP_CORE.Services
+namespace KipperPro.API_ASP_CORE.Services;
+
+public class UsersService
 {
-    internal class UsersService
+    private DbSetsBase _context;
+    public UsersService(DbSetsBase context)
     {
-        DB.MsContext context = new DB.MsContext();
-        internal void AddUser(UserRequst requst)
-        {
-            try
-            {
-                var us = new DB.Visitor(requst.Name, requst.Password, requst.Email);
-                context.Visitors.Add(us);
-                context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw new Exception( e.Message);
-            }
-        }
+        _context = context;
+    }
 
-        internal UserResponse GetUser(UserRequst requst)
+    public void AddUser(UserRequest request)
+    {
+        try
         {
-            try
-            {
-                var us = 
-                context.Visitors.Single(x => x.Email == requst.Email
-                && x.Password == requst.Password) ;
-                return new UserResponse { Id = us.VisitorId , Name = us.Name };
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+            var us = new Visitor(request.Name, request.Password, request.Email);
+            _context.Visitors.Add(us);
+            _context.SaveChanges();
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+
+    public UserResponse GetUser(UserRequest request)
+    {
+        try
+        {
+            var us =
+                _context.Visitors.Single(x => x.Email == request.Email
+                                              && x.Password == request.Password);
+            return new UserResponse { Id = us.VisitorId, Name = us.Name };
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
         }
     }
 }
