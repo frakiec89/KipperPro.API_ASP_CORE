@@ -34,7 +34,7 @@ namespace WebApplication4.Controllers
                 BadRequest(ex.Message);
             }
 
-            return true;
+            return Ok();
         }
 
         [HttpPost("authUser")]
@@ -49,12 +49,13 @@ namespace WebApplication4.Controllers
                 UsersService service = new UsersService();
                 UserResponse us = service.GetUser(request);
 
-                return us;
+                return Ok(us);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
+            
         }
     }
 }
