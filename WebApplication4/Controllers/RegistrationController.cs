@@ -1,7 +1,6 @@
-﻿using KipperPro.API_ASP_CORE.Services;
-using Microsoft.AspNetCore.Http;
+﻿using KipperPro.API_ASP_CORE.DB;
+using KipperPro.API_ASP_CORE.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebApplication4.ModelApi;
 
 namespace WebApplication4.Controllers
@@ -11,10 +10,12 @@ namespace WebApplication4.Controllers
     public class RegistrationController : ControllerBase
     {
         private readonly ValidationService _validation;
+        private readonly MsContext _ef;
 
-        public RegistrationController(ValidationService validation)
+        public RegistrationController(ValidationService validation, MsContext context)
         {
             _validation = validation;
+            _ef = context;
         }
 
         [HttpPost("registration")]
