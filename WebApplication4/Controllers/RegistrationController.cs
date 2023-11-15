@@ -17,7 +17,7 @@ namespace WebApplication4.Controllers
         }
         
         [HttpPost("registration")]
-        public ActionResult<bool> Registration(UserRequest request)
+        public IActionResult Registration(UserRequest request)
         {
             if (request == null)
             {  return BadRequest("пустой запрос");            }
@@ -54,7 +54,7 @@ namespace WebApplication4.Controllers
         }
 
         [HttpPost("authUser")]
-        public ActionResult<ModelApi.UserResponse> AuthUser (UserRequest request)
+        public IActionResult AuthUser (UserRequest request)
         {
             if (request == null)
             { return BadRequest("пустой запрос"); }
