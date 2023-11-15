@@ -15,7 +15,7 @@ public class UsersService
     {
         try
         {
-            var us = new DB.Visitor(request.Name, request.Password, request.Email);
+            var us = new Visitor(request.Name, request.Password, request.Email);
             _context.Visitors.Add(us);
             _context.SaveChanges();
         }
