@@ -5,11 +5,11 @@ namespace KipperPro.API_ASP_CORE.Services
     internal class UsersService
     {
         DB.MsContext context = new DB.MsContext();
-        internal void AddUser(UserRequst requst)
+        internal void AddUser(UserRequest request)
         {
             try
             {
-                var us = new DB.Visitor(requst.Name, requst.Password, requst.Email);
+                var us = new DB.Visitor(request.Name, request.Password, request.Email);
                 context.Visitors.Add(us);
                 context.SaveChanges();
             }
@@ -19,13 +19,13 @@ namespace KipperPro.API_ASP_CORE.Services
             }
         }
 
-        internal UserResponse GetUser(UserRequst requst)
+        internal UserResponse GetUser(UserRequest request)
         {
             try
             {
                 var us = 
-                context.Visitors.Single(x => x.Email == requst.Email
-                && x.Password == requst.Password) ;
+                context.Visitors.Single(x => x.Email == request.Email
+                && x.Password == request.Password) ;
                 return new UserResponse { Id = us.VisitorId , Name = us.Name };
             }
             catch (Exception e)

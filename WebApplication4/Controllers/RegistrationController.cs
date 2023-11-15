@@ -11,26 +11,26 @@ namespace WebApplication4.Controllers
     {
 
         [HttpPost("registration")]
-        public ActionResult<bool> Registration(UserRequst requst)
+        public ActionResult<bool> Registration(UserRequest request)
         {
-            if (requst == null)
+            if (request == null)
             {  return BadRequest("пустой запрос");            }
 
-            if (string.IsNullOrWhiteSpace(requst.Password))
+            if (string.IsNullOrWhiteSpace(request.Password))
             {return BadRequest("пустой пароль");            }
 
-            if (string.IsNullOrWhiteSpace(requst.Name))
+            if (string.IsNullOrWhiteSpace(request.Name))
             { return BadRequest("пустое имя"); }
 
-            if (string.IsNullOrWhiteSpace(requst.Email))
+            if (string.IsNullOrWhiteSpace(request.Email))
             { return  BadRequest("Email логин"); }
 
 
-            if (requst.Password.Length < 8)
+            if (request.Password.Length < 8)
                 return BadRequest("пароль короткий");
 
-            if (requst.Password.ToLower() == requst.Password ||
-                requst.Password.ToLower() == requst.Password
+            if (request.Password.ToLower() == request.Password ||
+                request.Password.ToLower() == request.Password
                 )
                 return BadRequest("пароль плохой");
             // todo - куча  проверок 
@@ -38,7 +38,7 @@ namespace WebApplication4.Controllers
             try
             {
                 UsersService service = new UsersService();
-                service.AddUser (requst);
+                service.AddUser (request);
             }
             catch (Exception ex)
             {
@@ -48,21 +48,21 @@ namespace WebApplication4.Controllers
         }
 
         [HttpPost("authUser")]
-        public ActionResult<ModelApi.UserResponse> AuthUser (UserRequst requst)
+        public ActionResult<ModelApi.UserResponse> AuthUser (UserRequest request)
         {
-            if (requst == null)
+            if (request == null)
             { return BadRequest("пустой запрос"); }
 
-            if (string.IsNullOrWhiteSpace(requst.Password))
+            if (string.IsNullOrWhiteSpace(request.Password))
             { return BadRequest("пустой пароль"); }
 
-            if (string.IsNullOrWhiteSpace(requst.Email))
+            if (string.IsNullOrWhiteSpace(request.Email))
             { return BadRequest("пустой логин"); }
 
             try
             {
                 UsersService service = new UsersService();
-                UserResponse us = service.GetUser (requst);
+                UserResponse us = service.GetUser (request);
 
                 return us;
             }
