@@ -1,23 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 namespace KipperPro.API_ASP_CORE.DB
 {
     public class MsContext : DbContext
     {
-        private string cs = $"Data Source=(LocalDb)\\MSSQLLocalDB;database = KiperPRO_DB;Integrated Security=true;";
-
+        private IConfiguration _config;
+        public MsContext(IConfiguration configuration)
+        {
+            _config = configuration;
+            Database.MigrateAsync();
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(cs);
+            optionsBuilder.UseSqlServer(_config["connectionStringSql"]);
         }
 
-        public DbSet<DB.AttendsGroups> AttendsGroups { get; set; }
-        public DbSet<DB.AttendsPersonally> AttendsPersonally { get; set;}
-        public DbSet<DB.Department> Department { get; set; }
-        public DbSet<DB.Division> Divisions { get; set; }
-        public DbSet<DB.User> Users { get; set; }   
-        public DbSet<DB.Visitor> Visitors { get; set; }
+        public DbSet<AttendsGroups> AttendsGroups { get; set; }
+        public DbSet<AttendsPersonally> AttendsPersonally { get; set;}
+        public DbSet<Department> Department { get; set; }
+        public DbSet<Division> Divisions { get; set; }
+        public DbSet<User> Users { get; set; }   
+        public DbSet<Visitor> Visitors { get; set; }
 
     }
 }

@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<Validation>();
 builder.Services.AddScoped<UsersService>();
+builder.Configuration.AddJsonFile("appsettings.json");
 
 var app = builder.Build();
 
