@@ -1,4 +1,5 @@
 ﻿using KipperPro.API_ASP_CORE.DB;
+using KipperPro.API_ASP_CORE.DB.Base;
 using KipperPro.API_ASP_CORE.DB.Contexts;
 using WebApplication4.ModelApi;
 
@@ -6,8 +7,8 @@ namespace KipperPro.API_ASP_CORE.Services;
 
 public class UsersService
 {
-    private MsContext _context;
-    public UsersService(MsContext context)
+    private DbSetsBase _context;
+    public UsersService(DbSetsBase context)
     {
         _context = context;
     }
