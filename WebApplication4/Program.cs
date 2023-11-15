@@ -1,3 +1,4 @@
+using KipperPro.API_ASP_CORE.DB;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<Validation>();
+builder.Services.AddDbContext<MsContext>();
 
 var app = builder.Build();
 
