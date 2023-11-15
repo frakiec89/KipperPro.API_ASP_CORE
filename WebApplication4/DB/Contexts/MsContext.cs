@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-namespace KipperPro.API_ASP_CORE.DB
+﻿using KipperPro.API_ASP_CORE.DB.Base;
+using Microsoft.EntityFrameworkCore;
+
+namespace KipperPro.API_ASP_CORE.DB.Contexts
 {
-    public class MsContext : DbContext
+    public class MsContext : DbSetsBase
     {
-        private IConfiguration _config;
         public MsContext(IConfiguration configuration)
         {
             _config = configuration;
