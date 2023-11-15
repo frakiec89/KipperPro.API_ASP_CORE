@@ -1,4 +1,5 @@
 using KipperPro.API_ASP_CORE.DB;
+using KipperPro.API_ASP_CORE.DB.Base;
 using KipperPro.API_ASP_CORE.DB.Contexts;
 using KipperPro.API_ASP_CORE.Services;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
@@ -13,7 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<Validation>();
 builder.Services.AddScoped<UsersService>();
-builder.Services.AddDbContext<MsContext>();
+/* Указываем базовый контекст и какой конкретно будет работать сейчас */
+builder.Services.AddDbContext<DbSetsBase, LiteContext>();
 builder.Configuration.AddJsonFile("appsettings.json");
 
 var app = builder.Build();
