@@ -10,12 +10,12 @@ namespace WebApplication4.Controllers
     public class RegistrationController : ControllerBase
     {
         private readonly ValidationService _validation;
-        private readonly MsContext _ef;
+        private readonly UsersService _service;
 
-        public RegistrationController(ValidationService validation, MsContext context)
+        public RegistrationController(ValidationService validation, UsersService usersService)
         {
             _validation = validation;
-            _ef = context;
+            _service = usersService;
         }
 
         [HttpPost("registration")]

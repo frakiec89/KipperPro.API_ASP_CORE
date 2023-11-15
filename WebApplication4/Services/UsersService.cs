@@ -3,7 +3,7 @@ using WebApplication4.ModelApi;
 
 namespace KipperPro.API_ASP_CORE.Services;
 
-internal class UsersService
+public class UsersService
 {
     private MsContext _context;
     public UsersService(MsContext context)
