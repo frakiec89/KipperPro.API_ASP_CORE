@@ -25,16 +25,8 @@ namespace WebApplication4.Controllers
                 return BadRequest(
                     "Запрос не прошел валидацию. Логин либо пустой, пароль возможно тоже, пароль должен быть не меньше 6 символов");
 
-            try
-            {
-                UsersService service = new UsersService();
-                service.AddUser(request);
-            }
-            catch (Exception ex)
-            {
-                BadRequest(ex.Message);
-            }
-
+            _service.AddUser(request);
+            
             return Ok();
         }
 
@@ -45,18 +37,7 @@ namespace WebApplication4.Controllers
                 return BadRequest(
                     "Запрос не прошел валидацию. Логин либо пустой, пароль возможно тоже");
 
-            try
-            {
-                UsersService service = new UsersService();
-                UserResponse us = service.GetUser(request);
-
-                return Ok(us);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            
+            return Ok(_service.GetUser(request));
         }
     }
 }
