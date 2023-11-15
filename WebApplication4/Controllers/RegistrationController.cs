@@ -1,9 +1,8 @@
-﻿using KipperPro.API_ASP_CORE.DB;
-using KipperPro.API_ASP_CORE.Services;
+﻿using KipperPro.API_ASP_CORE.Services;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication4.ModelApi;
 
-namespace WebApplication4.Controllers
+namespace KipperPro.API_ASP_CORE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
